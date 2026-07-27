@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+__pycache__/*
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual Environment
+.venv/
+venv/
+
+# Environment Variables
+.env
+
+# Malvis Database
+vectordb/*
+data/*
+rag/*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log

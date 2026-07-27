@@ -21,3 +21,6 @@ SMTP_APP_PASSWORD = os.getenv("SMTP_APP_PASSWORD")
 GM_EMAIL = os.getenv("GM_EMAIL")  
 FOOD_DEPT_EMAIL = os.getenv("FOOD_DEPT_EMAIL")
 MIS_EMAIL = os.getenv("MIS_EMAIL")
+
+IMAP_SERVER = "imap.gmail.com"
+IMAP_PORT = 993

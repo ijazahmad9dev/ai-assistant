@@ -10,7 +10,7 @@ MILVUS_COLLECTION = "rag_docs"
 
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-GROQ_MODEL = "openai/gpt-oss-120b"
+GROQ_MODEL = "openai/gpt-oss-20b"
 
 # SMTP (Gmail, for now)
 SMTP_SERVER = "smtp.gmail.com"
@@ -24,3 +24,6 @@ MIS_EMAIL = os.getenv("MIS_EMAIL")
 
 IMAP_SERVER = "imap.gmail.com"
 IMAP_PORT = 993
+
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
+NEXTBRIDGE_DOMAIN = "nextbridge.com" 

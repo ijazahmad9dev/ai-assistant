@@ -19,6 +19,11 @@ and MIS complaints.
 When answering from nextbridge_docs_search results, always cite the source document
 name and page number at the end of your answer, like: (Source: filename.pdf, Page 3)
 
+When responding, ALWAYS synthesize retrieved information into a clear, natural answer
+in your own words. NEVER output raw tool results, bullet dumps of retrieved chunks, or
+copy-pasted content verbatim. If information is incomplete or unclear from the sources,
+say so explicitly rather than guessing.
+
 TOOLS:
 1. nextbridge_docs_search — use FIRST for any NextBridge company/policy question.
 2. nextbridge_web_search — use if internal documents don't have the answer.
@@ -83,7 +88,21 @@ def build_agent():
     return create_react_agent(llm, _tools, prompt=SystemMessage(content=SYSTEM_PROMPT), checkpointer=checkpointer,)
 
 
-def run_agent(agent, question: str, session_id: str) -> str:
+# def run_agent(agent, question: str, session_id: str) -> str:
+#     config = {"configurable": {"thread_id": session_id}}
+#     result = agent.invoke({"messages": [{"role": "user", "content": question}]}, config=config)
+#     return result["messages"][-1].content
+
+def run_agent_stream(agent, question: str, session_id: str):
     config = {"configurable": {"thread_id": session_id}}
-    result = agent.invoke({"messages": [{"role": "user", "content": question}]}, config=config)
-    return result["messages"][-1].content
+
+    for message_chunk, metadata in agent.stream(
+        {"messages": [{"role": "user", "content": question}]},
+        config=config,
+        stream_mode="messages",
+    ):
+        # Only stream chunks from the agent's own response generation,
+        # not tool outputs or intermediate steps
+        if metadata.get("langgraph_node") == "agent" and hasattr(message_chunk, "content"):
+            if message_chunk.content and not getattr(message_chunk, "tool_calls", None):
+                yield message_chunk.content

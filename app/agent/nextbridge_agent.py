@@ -2,7 +2,7 @@ from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import SystemMessage
 
-from app.llm.groq_llm import get_llm
+from app.llm.ollama_llm import get_llm 
 from app.tools.rag_tool import nextbridge_docs_search
 from app.tools.web_search import nextbridge_web_search
 from app.tools.email_tool import send_leave_email

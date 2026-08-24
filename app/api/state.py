@@ -1,3 +1,2 @@
-rag_chain = None
-vectorstore = None
+retriever = None
 agent = None

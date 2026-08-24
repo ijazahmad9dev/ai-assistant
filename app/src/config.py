@@ -3,10 +3,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATA_PATH="/home/ahmad/Documents/Projects/NextBridge internship/Project02/ai-assistant/data"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # project root
+DATA_PATH = BASE_DIR / "data"
+
 EMBED_MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2"
-MILVUS_URI = "app/vectordb/milvus.db"
-MILVUS_COLLECTION = "rag_docs"
+FAISS_INDEX_PATH = "app/data/faiss_index"
 
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -27,3 +30,6 @@ IMAP_PORT = 993
 
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 NEXTBRIDGE_DOMAIN = "nextbridge.com" 
+
+OLLAMA_BASE_URL = "https://relation-creature-tap-bradley.trycloudflare.com"
+OLLAMA_MODEL = "gpt-oss:latest"

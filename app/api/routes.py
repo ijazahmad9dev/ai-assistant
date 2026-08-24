@@ -1,15 +1,16 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
 from app.api.schemas import QueryRequest
-from app.api.dependencies import get_agent
-from app.agent.nextbridge_agent import run_agent_stream
+from app.agent.nextbridge_agent import build_agent, run_agent_stream
 
 router = APIRouter()
 
 
 @router.post("/query")
-def query_agent(request: QueryRequest, agent=Depends(get_agent)):
+def query_agent(request: QueryRequest):
+    agent = build_agent()  # fresh agent per request, no Depends/state needed
+
     def event_generator():
         try:
             for chunk in run_agent_stream(agent, request.question, request.session_id):
@@ -23,4 +24,4 @@ def query_agent(request: QueryRequest, agent=Depends(get_agent)):
 @router.get("/health")
 def health_check():
     from app.api import state
-    return {"status": "ready" if state.agent is not None else "loading"}
+    return {"status": "ready" if state.retriever is not None else "loading"}

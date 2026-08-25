@@ -1,13 +1,29 @@
 import os
 import pickle
+import time
 from langchain_community.vectorstores import FAISS
 from app.src.config import FAISS_INDEX_PATH
 
 CHUNKS_PATH = os.path.join(FAISS_INDEX_PATH, "chunks.pkl")
+BATCH_SIZE = 20
 
 
 def build_and_save_index(docs, embedding):
-    vectorstore = FAISS.from_documents(documents=docs, embedding=embedding)
+    vectorstore = None
+    total_batches = (len(docs) - 1) // BATCH_SIZE + 1
+
+    for i in range(0, len(docs), BATCH_SIZE):
+        batch = docs[i:i + BATCH_SIZE]
+        batch_num = i // BATCH_SIZE + 1
+        print(f"Embedding batch {batch_num}/{total_batches} ({len(batch)} chunks)...")
+
+        if vectorstore is None:
+            vectorstore = FAISS.from_documents(documents=batch, embedding=embedding)
+        else:
+            vectorstore.add_documents(batch)
+
+        time.sleep(1)  # pace requests so we don't overload the Ollama origin server
+
     os.makedirs(FAISS_INDEX_PATH, exist_ok=True)
     vectorstore.save_local(FAISS_INDEX_PATH)
 

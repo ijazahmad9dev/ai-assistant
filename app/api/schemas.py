@@ -4,7 +4,7 @@ from typing import List, Optional
 
 class QueryRequest(BaseModel):
     question: str
-    session_id: str 
+    session_id: str
 
 
 class SourceChunk(BaseModel):
@@ -16,3 +16,10 @@ class SourceChunk(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     sources: List[SourceChunk] = []
+
+
+class GraphQueryResponse(BaseModel):
+    answer: str
+    retrieval_mode: str
+    retry_count: int
+    route: Optional[str] = None

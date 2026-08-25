@@ -33,3 +33,5 @@ NEXTBRIDGE_DOMAIN = "nextbridge.com"
 
 OLLAMA_BASE_URL = "https://relation-creature-tap-bradley.trycloudflare.com"
 OLLAMA_MODEL = "gpt-oss:latest"
+
+EMBED_MODEL_ID = "qwen3-embedding:latest"

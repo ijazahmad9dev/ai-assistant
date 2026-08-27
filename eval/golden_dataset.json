@@ -1,0 +1,162 @@
+[
+  {
+    "id": "q01",
+    "question": "Who is the Founder and CEO of NextBridge?",
+    "expected_answer": "Mubashir Mian is the Founder & CEO of NextBridge.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 9
+  },
+  {
+    "id": "q02",
+    "question": "How many annual leaves can a permanent employee avail in a year?",
+    "expected_answer": "A permanent employee can avail ten (10) annual leaves in a year, subject to prior approval from the Line Manager and HR.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 28
+  },
+  {
+    "id": "q03",
+    "question": "What date are salaries dispersed?",
+    "expected_answer": "Salaries are dispersed on or before the seventh (7th) of every month.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 18
+  },
+  {
+    "id": "q04",
+    "question": "How many sick/casual leaves are permanent employees entitled to?",
+    "expected_answer": "Permanent employees are entitled to ten (10) sick/casual leaves. These leaves are not cashable and cannot be carried forward to the next calendar year.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 29
+  },
+  {
+    "id": "q05",
+    "question": "What is the referral bonus amount and how is it paid out?",
+    "expected_answer": "The referral bonus is PKR 50,000, disbursed in two quarterly installments.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 36
+  },
+  {
+    "id": "q06",
+    "question": "How many days of maternity leave is an employee entitled to?",
+    "expected_answer": "Married female employees entering motherhood are entitled to one (1) month paid leave and two (2) months unpaid leave, based on their condition.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 29
+  },
+  {
+    "id": "q07",
+    "question": "What is the minimum and maximum password length required by NextBridge's password policy?",
+    "expected_answer": "Passwords must be a minimum of 8 characters and a maximum of 14 characters.",
+    "category": "easy_lookup",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 41
+  },
+  {
+    "id": "q08",
+    "question": "How many members typically sit on the Harassment Committee, and how many must be present at minimum for a proceeding?",
+    "expected_answer": "The Committee normally has four members (Mr. Muhammad Shakeel, Mr. Muhammad Ishaq, Ms. Amna Khan, Ms. Imama Ahmad). At any proceeding, at least two members must be present, including at least one female member.",
+    "category": "easy_lookup",
+    "source_doc": "nxb-hr-p-09-v2.1-private-harassment_policy_2005429134.pdf",
+    "source_page": 3
+  },
+  {
+    "id": "q09",
+    "question": "Who leads the company — is there a Chairperson or Chairman at NextBridge?",
+    "expected_answer": "The org chart lists a Chairperson role, but the handbook's leadership profile names Mubashir Mian as Founder & CEO and Omar A. Mian as President — the handbook doesn't separately name an individual as 'Chairperson.'",
+    "category": "vocabulary_mismatch",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 16
+  },
+  {
+    "id": "q10",
+    "question": "What happens if someone bullies a coworker at work in a way that isn't physical or sexual?",
+    "expected_answer": "This would fall under Verbal Harassment or Mobbing (if done by a group, prolonged and systematic) — both are defined forms of harassment under the policy, covering offensive language, derogatory comments, or threats not involving physical contact.",
+    "category": "vocabulary_mismatch",
+    "source_doc": "nxb-hr-p-09-v2.1-private-harassment_policy_2005429134.pdf",
+    "source_page": 1
+  },
+  {
+    "id": "q11",
+    "question": "Can I work from a coffee shop instead of the office sometimes?",
+    "expected_answer": "This falls under the Remote Work (WFH) Policy — a permanent employee must discuss the need for WFH with their manager, apply via Groupcaptain at least 3 days prior, and can request WFH up to 3 days per month.",
+    "category": "vocabulary_mismatch",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 33
+  },
+  {
+    "id": "q12",
+    "question": "If my boss threatens me because of my position at the company, is that considered harassment?",
+    "expected_answer": "Yes — threatening a person by exercising authority based on gender, age, and/or position in the Company is explicitly listed as a form of Verbal Harassment under the policy.",
+    "category": "vocabulary_mismatch",
+    "source_doc": "nxb-hr-p-09-v2.1-private-harassment_policy_2005429134.pdf",
+    "source_page": 1
+  },
+  {
+    "id": "q13",
+    "question": "List all the members of the Technical Team and their titles.",
+    "expected_answer": "Muhammad Ishaq (Chief Technology Officer), Shahid Maqsood (VP Engineering), Syed Saadat Ali (VP Engineering), Fahad Nisar (VP Engineering), and Mubbashir Aziz (VP Engineering).",
+    "category": "enumeration",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 10
+  },
+  {
+    "id": "q14",
+    "question": "What are all the types of leave mentioned in the handbook?",
+    "expected_answer": "Annual Leave, Casual Leave, Sick Leave, and other mandatory leaves. Additional specific categories described elsewhere include Maternity Leave, Leave during Probation, Excess/Unpaid Leave, and Short/Half Leave.",
+    "category": "enumeration",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 27
+  },
+  {
+    "id": "q15",
+    "question": "What are all the forms of harassment listed in the harassment policy?",
+    "expected_answer": "Verbal Harassment, Physical Harassment, Sexual Harassment, Cyber Harassment, Discrimination, Retaliation, and Mobbing.",
+    "category": "enumeration",
+    "source_doc": "nxb-hr-p-09-v2.1-private-harassment_policy_2005429134.pdf",
+    "source_page": 1
+  },
+  {
+    "id": "q16",
+    "question": "List NextBridge's office locations.",
+    "expected_answer": "Center I, Center II, and Center III in Lahore (M.A. Johar Town area), an Islamabad office, and a Sialkot office.",
+    "category": "enumeration",
+    "source_doc": "handbook-final-v6.0_2_45702763540.pdf",
+    "source_page": 12
+  },
+  {
+    "id": "q17",
+    "question": "What penalties can be imposed on someone found guilty of harassment, from minor to major?",
+    "expected_answer": "Minor: reprimand/open criticism, negative performance review assessment, withholding promotion/increment, monetary compensation to the aggrieved. Major: reduction to a lower designation, compulsory retirement, removal from services, dismissal from services, and registration of the complaint with an authorized regulatory body.",
+    "category": "enumeration",
+    "source_doc": "nxb-hr-p-09-v2.1-private-harassment_policy_2005429134.pdf",
+    "source_page": 3
+  },
+  {
+    "id": "q18",
+    "question": "What is NextBridge's stock price and is it publicly traded?",
+    "expected_answer": "Not in corpus — the handbook and harassment policy contain no information about stock price or public trading status.",
+    "category": "not_in_corpus",
+    "source_doc": null,
+    "source_page": null
+  },
+  {
+    "id": "q19",
+    "question": "What is the notice period for an employee who wants to switch from the Technical to the Corporate Wing internally?",
+    "expected_answer": "Not in corpus — the handbook describes resignation/termination notice periods but does not describe an internal-transfer notice period between wings.",
+    "category": "not_in_corpus",
+    "source_doc": null,
+    "source_page": null
+  },
+  {
+    "id": "q20",
+    "question": "Does NextBridge offer a 401k retirement plan?",
+    "expected_answer": "Not in corpus — NextBridge offers a Provident Fund and Employees Old-Age Benefit (EOBI), which are the relevant Pakistan-based retirement benefits described; a 401k (a US-specific plan) is not mentioned.",
+    "category": "not_in_corpus",
+    "source_doc": null,
+    "source_page": null
+  }
+]

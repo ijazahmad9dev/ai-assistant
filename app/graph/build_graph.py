@@ -61,4 +61,4 @@ def build_crag_graph():
     )
     workflow.add_edge("finalize", END)
 
-    return workflow.compile(checkpointer=_checkpointer)
+    return workflow.compile(checkpointer=_checkpointer, name="CRAG-Graph")

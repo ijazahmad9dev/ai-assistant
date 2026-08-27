@@ -35,3 +35,16 @@ OLLAMA_BASE_URL = "https://relation-creature-tap-bradley.trycloudflare.com"
 OLLAMA_MODEL = "gpt-oss:latest"
 
 EMBED_MODEL_ID = "qwen3-embedding:latest"
+
+LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "false")
+LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+LANGSMITH_ENDPOINT = os.getenv("LANGSMITH_ENDPOINT", "https://api.smith.langchain.com")
+LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "nextbridge-crag-eval")
+
+# LangGraph/LangChain read these directly from the process environment,
+# so mirror them there at startup
+os.environ["LANGCHAIN_TRACING_V2"] = LANGSMITH_TRACING
+if LANGSMITH_API_KEY:
+    os.environ["LANGCHAIN_API_KEY"] = LANGSMITH_API_KEY
+os.environ["LANGCHAIN_ENDPOINT"] = LANGSMITH_ENDPOINT
+os.environ["LANGCHAIN_PROJECT"] = LANGSMITH_PROJECT

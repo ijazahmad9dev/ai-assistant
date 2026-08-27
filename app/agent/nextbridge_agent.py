@@ -81,7 +81,7 @@ _tools = [
 def build_agent():
     llm = get_llm()
     checkpointer = MemorySaver()
-    return create_react_agent(llm, _tools, prompt=SystemMessage(content=SYSTEM_PROMPT), checkpointer=checkpointer,)
+    return create_react_agent(llm, _tools, prompt=SystemMessage(content=SYSTEM_PROMPT), checkpointer=checkpointer, name="ReAct-Agent",)
 
 
 # def run_agent(agent, question: str, session_id: str) -> str:
@@ -90,7 +90,11 @@ def build_agent():
 #     return result["messages"][-1].content
 
 def run_agent_stream(agent, question: str, session_id: str):
-    config = {"configurable": {"thread_id": session_id}}
+    config = {
+        "configurable": {"thread_id": session_id},
+        "tags": ["react-agent"],
+        "metadata": {"pipeline": "react-agent"},
+    }
 
     for message_chunk, metadata in agent.stream(
         {"messages": [{"role": "user", "content": question}]},

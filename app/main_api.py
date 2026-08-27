@@ -1,3 +1,5 @@
+from app.src import config 
+
 from fastapi import FastAPI
 from app.ingestion.run_ingestion import get_or_build_retriever
 from app.api.routes import router

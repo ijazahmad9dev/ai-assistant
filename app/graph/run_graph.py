@@ -25,7 +25,11 @@ def run_graph_query(question: str, session_id: str) -> dict:
         "route": None,
     }
 
-    config = {"configurable": {"thread_id": session_id}}
+    config = {
+        "configurable": {"thread_id": session_id},
+        "tags": ["crag-graph"],
+        "metadata": {"pipeline": "crag"},
+    }
     final_state = graph.invoke(initial_state, config=config)
 
     return {

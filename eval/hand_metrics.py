@@ -60,3 +60,30 @@ def context_precision_at_k(question: str, expected_answer: str, retrieved_contex
             weighted_sum += precision_at_k
 
     return weighted_sum / num_relevant_total
+
+
+def faithfulness_score(answer: str, contexts: list) -> float:
+    """Hand-rolled faithfulness check that doesn't depend on RAGAS's internal
+    structured-output parsing (which has been failing against the local
+    Ollama model — see NaN faithfulness/context_precision/context_recall in
+    results.json). Uses the same plain YES/NO judging pattern as
+    context_precision_at_k, which has been reliable in practice.
+
+    Returns 1.0 if the answer is judged fully grounded in the given contexts,
+    0.0 otherwise.
+    """
+    if not answer or not contexts:
+        return 0.0
+
+    llm = get_llm()
+    context_block = "\n\n---\n\n".join(c[:500] for c in contexts)
+    prompt = (
+        "You are checking whether an ANSWER is faithfully grounded in the given CONTEXT.\n\n"
+        f"CONTEXT:\n{context_block}\n\nANSWER:\n{answer}\n\n"
+        "Does the CONTEXT support the claims made in the ANSWER, without the ANSWER "
+        "stating anything that contradicts or is absent from the CONTEXT? Minor phrasing "
+        "differences and reasonable summarization are fine.\n\n"
+        "Respond with only one word: YES or NO."
+    )
+    result = llm.invoke(prompt).content.strip().upper()
+    return 1.0 if ("YES" in result and "NO" not in result.replace("YES", "")) else 0.0

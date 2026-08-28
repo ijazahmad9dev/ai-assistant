@@ -16,9 +16,14 @@ def run_after_pipeline(question: str, session_id: str) -> dict:
     _ensure_retriever()
     result = run_graph_query(question, session_id)
 
-    # Capture the contexts actually available to this query for RAGAS context metrics
-    contexts = app_state.retriever.invoke(question)
-    context_texts = [d.page_content for d in contexts[:8]]
+    # Uses the EXACT context the graph used to generate this answer (now
+    # returned by run_graph_query) instead of re-running retrieval separately
+    # on the raw question — a fresh call would ignore decomposition, query
+    # rewrites, and web-search fallback, and score the answer against
+    # contexts that have nothing to do with what actually produced it.
+    context_texts = [d["page_content"] for d in result.get("documents", [])]
+    if not context_texts:
+        context_texts = ["(no context retrieved / request was blocked)"]
 
     return {
         "answer": result["answer"],
@@ -41,14 +46,11 @@ def run_before_pipeline(question: str, session_id: str) -> dict:
     final_message = result["messages"][-1]
     answer = final_message.content
 
-    # Extract the actual tool outputs (context) the agent used, from the message history —
-    # ToolMessages contain what nextbridge_docs_search / nextbridge_web_search returned.
     context_texts = []
     for msg in result["messages"]:
         if getattr(msg, "type", None) == "tool" or msg.__class__.__name__ == "ToolMessage":
             content = getattr(msg, "content", "")
             if content:
-                # rag_tool formats multiple chunks separated by "---" — split them back out
                 chunks = re.split(r"\n\n---\n\n", content)
                 context_texts.extend(chunks)
 

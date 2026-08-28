@@ -23,6 +23,13 @@ def run_graph_query(question: str, session_id: str) -> dict:
         "grade": None,
         "retry_count": 0,
         "route": None,
+        "sub_questions": [],
+        "uncovered_sub_questions": [],
+        "blocked": False,
+        "block_reason": None,
+        "original_sub_questions": [],
+        "output_blocked": False,
+        "unsupported_claims": [],
     }
 
     config = {
@@ -33,8 +40,10 @@ def run_graph_query(question: str, session_id: str) -> dict:
     final_state = graph.invoke(initial_state, config=config)
 
     return {
-        "answer": final_state.get("generation") or "No answer generated.",
+        "answer": final_state.get("best_generation") or final_state.get("generation") or "No answer generated.",
         "retrieval_mode": final_state.get("retrieval_mode", "vector"),
         "retry_count": final_state.get("retry_count", 0),
         "route": final_state.get("route"),
+        "blocked": final_state.get("blocked", False),
+        "output_blocked": final_state.get("output_blocked", False),
     }

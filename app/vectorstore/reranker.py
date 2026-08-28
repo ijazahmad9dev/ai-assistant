@@ -1,4 +1,5 @@
 from sentence_transformers import CrossEncoder
+from langsmith import traceable
 
 _model = None
 
@@ -10,6 +11,7 @@ def get_reranker():
     return _model
 
 
+@traceable(name="cross_encoder_rerank", run_type="tool")
 def rerank(query: str, docs: list, top_k: int = 5):
     if not docs:
         return docs

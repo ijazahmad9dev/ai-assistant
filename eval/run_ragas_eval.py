@@ -91,7 +91,7 @@ def run_ragas(rows):
     # forces genuinely sequential calls (matching how Ollama processes them
     # anyway), and a much longer timeout gives a slower local model room to
     # finish faithfulness's multi-step statement extraction/verification.
-    run_config = RunConfig(timeout=600, max_workers=1, max_retries=3, max_wait=30)
+    run_config = RunConfig(timeout=600, max_workers=1, max_retries=3, max_wait=5)
 
     return evaluate(
         dataset,

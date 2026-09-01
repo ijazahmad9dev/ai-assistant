@@ -25,6 +25,7 @@ def run_graph_query(question: str, session_id: str) -> dict:
         "question": question,
         "original_question": question,
         "documents": [],
+        "context_documents": [],
         "generation": None,
         "best_generation": None,
         "retrieval_mode": "vector",
@@ -32,12 +33,14 @@ def run_graph_query(question: str, session_id: str) -> dict:
         "retry_count": 0,
         "route": None,
         "sub_questions": [],
+        "original_sub_questions": [],
         "uncovered_sub_questions": [],
         "blocked": False,
         "block_reason": None,
-        "original_sub_questions": [],
         "output_blocked": False,
         "unsupported_claims": [],
+        "web_search_attempted": False,
+        "web_search_terminal": False,
     }
 
     config = {
@@ -47,12 +50,11 @@ def run_graph_query(question: str, session_id: str) -> dict:
     }
     final_state = graph.invoke(initial_state, config=config)
 
-    # Re-derive the EXACT context generate() used, via the same deterministic
-    # rerank _top_docs_for that generate() itself calls — no new state field
-    # needed, since documents is never mutated again after generate() runs.
     n = 8 if final_state.get("route") == "complex" else 5
     sub_qs = final_state.get("sub_questions") or [question]
-    top_docs = _top_docs_for(sub_qs, final_state.get("documents") or [], n)
+    top_docs = final_state.get("context_documents") or _top_docs_for(
+        sub_qs, final_state.get("documents") or [], n
+    )
 
     result = {
         "answer": final_state.get("best_generation") or final_state.get("generation") or "No answer generated.",

@@ -21,9 +21,12 @@ rag/*
 # IDE
 .vscode/
 .idea/
+app/data/faiss_index/*
 
 # OS
 .DS_Store
 
 # Logs
 *.log
+
+app/data/faiss_index/

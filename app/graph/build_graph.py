@@ -10,6 +10,7 @@ from app.graph.nodes import (
 from app.graph.edges import (
     route_after_input_guardrail, route_after_classification,
     route_after_grading, route_after_generation_grade, route_after_fast_generate,
+    route_after_web_search,
 )
 
 _checkpointer = MemorySaver()
@@ -32,13 +33,15 @@ def build_crag_graph():
     workflow.add_node("fast_generate", fast_generate)
     workflow.add_node("output_guardrail", output_guardrail)
 
-    # Every request enters through the input guardrail first — nothing reaches
-    # retrieval, tools, or an LLM generation call over real context otherwise.
     workflow.set_entry_point("input_guardrail")
     workflow.add_conditional_edges(
         "input_guardrail",
         route_after_input_guardrail,
-        {"blocked": "blocked_response", "allowed": "route_question"},
+        {
+            "blocked": "blocked_response",
+            "explicit_web_search": "web_search",   # skips retrieval entirely
+            "allowed": "route_question",
+        },
     )
     workflow.add_edge("blocked_response", END)
 
@@ -49,8 +52,6 @@ def build_crag_graph():
     )
     workflow.add_edge("decompose_question", "retrieve")
 
-    # Fast path — "end" now routes through the output guardrail instead of
-    # straight to END, so simple-question answers get the same final check.
     workflow.add_conditional_edges(
         "fast_generate",
         route_after_fast_generate,
@@ -64,15 +65,25 @@ def build_crag_graph():
         {"generate": "generate", "transform_query": "transform_query", "web_search": "web_search"},
     )
     workflow.add_edge("transform_query", "retrieve")
-    workflow.add_edge("web_search", "generate")
+
+    # web_search no longer unconditionally goes to generate() — it ends
+    # directly when it already produced a terminal canned message.
+    workflow.add_conditional_edges(
+        "web_search",
+        route_after_web_search,
+        {"end": "output_guardrail", "generate": "generate"},
+    )
 
     workflow.add_edge("generate", "grade_generation")
     workflow.add_conditional_edges(
         "grade_generation",
         route_after_generation_grade,
-        # "end" now routes through the output guardrail too — this is the
-        # single convergence point every path passes through before END.
-        {"end": "output_guardrail", "transform_query": "transform_query", "finalize": "finalize"},
+        {
+            "end": "output_guardrail",
+            "transform_query": "transform_query",
+            "finalize": "finalize",
+            "web_search": "web_search",
+        },
     )
     workflow.add_edge("finalize", "output_guardrail")
     workflow.add_edge("output_guardrail", END)

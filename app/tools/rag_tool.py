@@ -17,10 +17,10 @@ def nextbridge_docs_search(query: str) -> str:
     project files, internal processes) using semantic search, keyword search, and
     relevance reranking. Use this FIRST for any NextBridge-related question before
     searching the web."""
-    if state.retriever is None:
+    if state.semantic_retriever is None:
         return "Internal document store is not available right now."
 
-    candidates = state.retriever.invoke(query)
+    candidates = state.semantic_retriever.invoke(query)
 
     if not candidates:
         return (
@@ -29,7 +29,8 @@ def nextbridge_docs_search(query: str) -> str:
             "query before responding to the employee."
         )
 
-    docs = rerank(query, candidates, top_k=5)
+    # docs = rerank(query, candidates, top_k=5)
+    docs =candidates
 
     results = []
     for d in docs:

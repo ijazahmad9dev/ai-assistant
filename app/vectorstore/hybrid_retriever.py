@@ -21,3 +21,12 @@ def build_hybrid_retriever(vectorstore, docs, k=5, semantic_weight=0.6):
     )
 
     return multi_query_retriever
+
+def build_semantic_retriever(vectorstore, k=5):
+    """Plain vector similarity search — no BM25, no multi-query expansion.
+    Used by the ReAct agent, which calls this tool inside its own reasoning
+    loop and can just re-invoke it with a different query itself if the first
+    call misses; it doesn't need the hybrid retriever's extra recall/latency
+    since it already has its own iterative retry mechanism (multiple tool
+    calls), unlike CRAG's single retrieve() call per attempt."""
+    return vectorstore.as_retriever(search_kwargs={"k": k})
